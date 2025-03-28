@@ -1,0 +1,76 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as Stories from './useMultiStepForm.stories';
+
+<Meta of={Stories} />
+
+# useMultiStepForm
+This Hooks will manage form state and also form values for Multi step form
+<Canvas of={Stories.Example} />
+
+
+### Usage
+- Make sure to wrap parent component in FormProvider so we can have access to context
+- This hooks only manages form progress state and keep form values in different pages
+- For validating and manage form states in each page you need to use `zod` and `react-form-hooks`
+
+
+### Code usage
+
+```.js
+
+const initData = [
+  { id: 'id-1', title: 'Insurance Type', status: 'pending' },
+  { id: 'id-2', title: 'Industry', status: 'pending' },
+  {
+    id: 'id-3',
+    title: 'Business info',
+    status: 'pending',
+    sub: [
+      { id: 'id-4', title: 'Policy Type', status: 'pending' },
+      { id: 'id-5', title: 'Business details', status: 'pending' },
+    ],
+  },
+  {
+    id: 'id-6',
+    title: 'Locations',
+    status: 'pending',
+    sub: [
+      { id: 'id-10', title: 'Billing Address', status: 'pending' },
+      { id: 'id-11', title: 'Shipping Address', status: 'pending' },
+    ],
+  },
+  { id: 'id-7', title: 'Property info', status: 'pending' },
+  { id: 'id-8', title: 'Quote', status: 'pending' },
+];
+
+export function Example() {
+  return (
+    <FormProvider initialFormData={initData}>
+      <From reset={reset} />
+    </FormProvider>
+  );
+}
+
+function From() {
+  const {
+    activeStep, // will show you activeStep
+    allStepFormData, // will return all steps form Data
+    stepFormData, // this will only return form Data from current step
+    isCompleted, // this will show if form is completed or not
+    orderIds, // this will have order of step ids and can be used to pass to progressSummary component
+    progressFormData, // this will keep track of completed step and can be used to pass to progressSummary component
+    onHandleBack, // this will handle go to previous step
+    onSelectStep, // this will accept step id and it will be used to navigate to specific step
+    onFinalizeStep, // this will save form data and change status of step to completed
+  } = useFormState();
+
+  return (
+    <MultiStepFormProgressSummary
+        data={progressFormData}
+        orderIds={orderIds}
+        activeStep={activeStep}
+        onSelect={onSelectStep}
+        canSelectCompletedItem
+    />
+  )
+}

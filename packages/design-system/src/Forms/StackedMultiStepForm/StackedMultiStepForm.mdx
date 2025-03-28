@@ -1,0 +1,79 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as Stories from './StackedMultiStepForm.stories';
+
+<Meta of={Stories} />
+
+# StackedMultiStepForm
+This component comes with a custom hooks which can be used in any of subcomponents to manage state of stackMultiStepForm
+<Canvas of={Stories.Example} />
+
+# useStackedMultiStepForm
+It can be used like
+
+```js
+const { onCompleteStep, onSkipStep, onBackStep, onNextStep, currentStep, totalSteps } = useStackedMultiStepForm();
+```
+
+### Code usage
+
+```.js
+function StepComponent() {
+  const { onCompleteStep } = useStackedMultiStepForm();
+  return (
+    <Box>
+      <Typography sx={{ pb: 2 }}>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.Lorem Ipsum is simply dummy text of the printing and
+        typesetting industry.
+      </Typography>
+      <Button
+        variant="contained"
+        color="primary"
+        size="small"
+        onClick={onCompleteStep}
+      >
+        Save
+      </Button>
+    </Box>
+  );
+}
+
+const InitialData = [
+  {
+    title: 'Verify Your Property Information',
+    subTitle: 'You can modify the information in the fields if needed',
+    content: <StepComponent />,
+  },
+  {
+    title: 'Select Your Property’s Insurable Value',
+    subTitle: 'WHAT IS INCLUDED',
+    content: <StepComponent />,
+    canSkip: true,
+  },
+  {
+    title: 'Answer Discount Questions',
+    subTitle: (
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Chip label="SAVE UP TO 30%" color="primary" size="small" />
+        <Typography variant="body1" sx={{ pl: 2, color: 'primary.main' }}>
+          You save $3,000
+        </Typography>
+      </Box>
+    ),
+    content: <StepComponent />,
+  },
+  {
+    title: 'Final Step',
+    content:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+  },
+];
+
+export function Example() {
+  return (
+    <Box sx={{ p: 3, bgcolor: 'surface.main' }}>
+      <StackedMultiStepForm data={InitialData} />
+    </Box>
+  );
+}
+```

@@ -1,0 +1,87 @@
+import { Meta } from '@storybook/blocks';
+import Spacing from './spacing.tsx';
+
+<Meta title="Foundation/Theme" />
+
+
+# Spacing
+----
+Spacings are scalling by 8px. and can be used like `theme.spacing(2); // = 0.5 * 2rem = 1rem = 16px`
+<Spacing/>
+
+<br/>
+<br/>
+<br/>
+
+# Breakpoints
+----
+Because this design system primarily serves dashboards, we begin with a Desktop-first approach. This entails implementing all features and functionalities on a broad scale for larger screens initially. Subsequently, we will assess the need for optimization on mobile and smaller devices.
+
+Each breakpoint (a key) matches with a fixed screen width (a value):
+- **sm**, small:  768px
+- **md**: medium: 1024px
+- **lg**: large:  1200px
+
+#### CSS Media Queries
+
+CSS media queries are the idiomatic approach to make your UI responsive.
+
+| media queries   |     css equivalent      |
+|----------|:-------------:|
+| theme.breakpoints.down('lg') |  `@media (max-width: 1200px) {}` |
+| theme.breakpoints.down('md') |    `@media (max-width: 1024px) {}`   |
+| theme.breakpoints.down('sm') |   `@media (max-width: 768px) {}` |
+
+code usage:
+```
+const styles = (theme) => ({
+  root: {
+    backgroundColor: 'blue',
+    // Match [0, md)
+    //       [0, 1024px)
+    [theme.breakpoints.down('md')]: {
+      backgroundColor: 'red',
+    },
+  },
+});
+```
+
+<br/>
+<br/>
+
+# Border radius
+----
+we have three main border radius for these purposes which can be different in each theme
+| borderRadius   |    usage      |
+|----------|:-------------:|
+| `theme.shape.borderRadiusSm` |  Forms, Buttons, Check boxes, Selected mark, Tooltips etc.. |
+| `theme.shape.borderRadius` |   Dropdown, Popovers, Attention box, Updates   |
+| `theme.shape.borderRadiusLg` |   Popups, Surfaces |
+
+and we have different shape token assess
+- `theme.shape.circle` for circle shapes
+- `theme.shape.pill` for oval shapes
+- `theme.shape.borderWidth` for general borderWidth usage around design system
+
+<br/>
+<br/>
+
+# Styling options
+---
+
+- All components exported from `@benchmark-brokers/ui` design system have `sx` prop for adding custom styling like padding or margin. click here to [learn more about it](https://mui.com/system/getting-started/the-sx-prop/).
+- You can import Styled engine from design system like `import { styled } from '@benchmark-brokers/ui';` and wrap either design system component or third party component to use theme tokens or custom styling. click here to [learn more about it](https://mui.com/system/styled/).
+- Or you can Wrap component in `Box` component from design system and use `sx` prop to add custom styling to `Box` childrens.
+The `Box` component is a generic, theme-aware container with access to CSS utilities from design System. you can think of `Box` as wrrapper div for giving styles to childrens.
+```
+<Box
+  sx={{
+    bgcolor: 'theme.palette.primary.main',
+    boxShadow: 1,
+    borderRadius: 2,
+    p: 2,
+    minWidth: 300,
+  }}
+>
+</Box>
+```

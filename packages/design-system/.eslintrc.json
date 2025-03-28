@@ -1,0 +1,8 @@
+{
+  "plugins": ["react-refresh"],
+  "rules": {
+    "react-refresh/only-export-components": "error",
+    "react/function-component-definition": [1]
+  },
+  "extends": ["plugin:storybook/recommended"]
+}

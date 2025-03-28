@@ -1,0 +1,46 @@
+{
+  "name": "@benchmark-brokers/api",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/react": "^18.2.31",
+    "@types/react-dom": "^18.2.14",
+    "orval": "^6.23.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^5.0.5",
+    "rollup": "^4.1.4",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.17.15",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "scripts": {
+    "prepack": "yarn build",
+    "build": "rollup -c",
+    "watch": "rollup -cw",
+    "clean": "rimraf dist",
+    "postinstall": "yarn build",
+    "codegen": "rimraf src/endpoints.ts; rimraf src/models/*; orval --config ./orval.config.ts",
+    "prebuild": "yarn clean"
+  },
+  "dependencies": {
+    "@benchmark-brokers/api": "workspace:^",
+    "axios": "^1.6.4"
+  }
+}

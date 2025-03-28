@@ -1,0 +1,19 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as Stories from './useHover.stories';
+
+<Meta of={Stories} />
+
+# useHover
+Detect whether the mouse is hovering an element by returning its <code>isHovered</code> state.
+<Canvas of={Stories.Example} />
+
+
+### Usage
+- Use this hook to get element hovered state
+- Please assign the returned ref as the reference of the element
+
+---
+
+### Returns
+- ref `React.MutableRefObject` - A React ref object to assign to the element which hover state needs to be tracked.
+- isHovered `boolean` - Whether the element is hovered or not.

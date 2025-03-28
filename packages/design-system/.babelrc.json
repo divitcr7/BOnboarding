@@ -1,0 +1,21 @@
+{
+  "sourceType": "unambiguous",
+  "presets": [
+    [
+      // Allows smart transpilation according to target environments
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "current"
+        },
+        /**
+         * Specifying what module type should the output be in.
+         * For test cases, we transpile all the way down to CommonJS since Node does not understand TypeScript.
+         */
+        "modules": "commonjs"
+      }
+    ],
+    "@babel/preset-typescript",
+    "@babel/preset-react"
+  ]
+}

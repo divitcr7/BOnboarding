@@ -1,0 +1,17 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as Stories from './useMediaQuery.stories';
+
+<Meta of={Stories} />
+
+# useMediaQuery
+Resize windows to see this in action for `sm` `md` and `lg` breakpoint available in design system.
+<Canvas of={Stories.Example} />
+
+
+### Usage
+- `const matchedMdOrLower = useMediaQuery({ breakPoint: 'md' })`
+
+---
+
+### Returns
+- `True` or `False` based on if display width size will match breakpoints size or lower than

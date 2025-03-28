@@ -1,0 +1,50 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as Stories from './FormContainer.stories';
+
+<Meta of={Stories} />
+
+
+# FormContainer
+Form Container wrapper around `react-hook-form` and adding `Zod Resolver` for form validation which uses `Zod` schema.
+`FormContainer` provide all contexts to all childrens controlled input and responsible for handling form states and validations.
+### you can read more about form and validation library here:
+- [react-hook-form context](https://react-hook-form.com/docs/useformcontext)
+- [Zod schema validation](https://github.com/colinhacks/zod)
+<Canvas of={Stories.Example} />
+
+
+## FormContainer creates formContext
+The `<FormContainer />` wires up a form and you can create sub-components which either make use of `useFormContext() | useWatch()` to react to form values.
+
+### Usage
+- Make sure to wrap parent component in `FormContainer` so we can have access to context
+- You need to import `Zod` and write form input validation and create typescript typescript ex:
+
+```.js
+import { z } from '@benchmark-brokers/ui';
+
+const formDataSchema = z.object({
+  gender: z.enum(['male', 'female', 'other'], {
+    required_error: 'This field is required',
+  }),
+  age: z.number({
+    required_error: "Age is required",
+    invalid_type_error: "Age must be a number",
+  });
+});
+
+// convert zod schema to typescript types for formContainer types
+type Inputs = z.infer<typeof formDataSchema>;
+```
+- Then you can wrap your controlled input inside `FormContainer`. ex:
+
+```
+<FormContainer<Inputs>
+  onSuccess={onSuccessHandler}
+  onError={onErrorHandler}
+  defaultValues={formDefaultValues}
+  FormDataSchema={formDataSchema}
+>
+  ... add your controlled input here
+<FormContainer>
+```
